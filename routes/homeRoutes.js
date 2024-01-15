@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const movieController = require('../controllers/movieController');
 
-router.get('/allmovies', movieController.getMovies);
+router.get('/movies', movieController.getMovies);
+router.get('/movies/:movieId', movieController.getMovieById);
 
 module.exports = router;
