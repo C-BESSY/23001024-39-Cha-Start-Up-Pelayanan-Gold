@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const knexInstance = require('../knexfile').development
 const knex = require('knex')(knexInstance)
+const multer = require('multer')
+const upload = multer()
 
 router.get('/', async (req, res) => {
   try {
@@ -27,10 +29,11 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/create', async (req, res) => {
-  const newAuditoriumData = req.body;
+router.post('/create', upload.none(), async (req, res) => {
+  // console.log(req.body)
+  const {nama_auditorium, price, price_weekend, cinema_id} = req.body;
   try {
-    const createdAuditorium = await knex('auditoriums').insert(newAuditoriumData).returning('*');
+    const createdAuditorium = await knex('auditoriums').insert(req.body).returning('*');
     res.status(201).json({ message: 'Auditorium created successfully', auditorium: createdAuditorium[0] });
   } catch (error) {
     console.error('Error creating auditorium:', error.message);
@@ -38,7 +41,7 @@ router.post('/create', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.none(), async (req, res) => {
   const { id } = req.params;
   const updatedAuditoriumData = req.body;
   try {

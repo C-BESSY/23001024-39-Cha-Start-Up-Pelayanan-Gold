@@ -1,69 +1,72 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const multer = require('multer')
+const upload = multer()
 
 module.exports = function (knexInstance) {
   router.get('/', async (req, res) => {
-    const cinemas = await knexInstance('cinemas').select('*');
-    res.json(cinemas);
-  });
+    const cinemas = await knexInstance('cinemas').select('*')
+    res.json(cinemas)
+  })
 
   router.get('/:id', async (req, res) => {
     const { id } = req.params;
-    const cinema = await knexInstance('cinemas').where({ id }).first();
-    res.json(cinema);
-  });
+    const cinema = await knexInstance('cinemas').where({ id }).first()
+    res.json(cinema)
+  })
 
-  router.post('/create', async (req, res) => {
-    console.log(req.body)
-    const newCinemaData = req.body
-
+  
+  router.post('/create', upload.none(), async (req, res) => {
+    const { name, location } = req.body;
+  
     try {
-      const createdCinema = await knexInstance('cinemas').insert(newCinemaData).returning('*');
-
-      res.status(201).json({ message: 'Cinema created successfully', cinema: createdCinema[0] });
+      const createdCinema = await knexInstance('cinemas').insert({ name, location }).returning('*')
+  
+      res.status(201).json({ message: 'Cinema created successfully', cinema: createdCinema[0] })
     } catch (error) {
-      console.error('Error creating cinema:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Error creating cinema:', error)
+      res.status(500).json({ error: 'Internal Server Error' })
     }
-  });
+  })
 
 
-  router.put('/:id', async (req, res) => {
+
+  router.put('/:id', upload.none(), async (req, res) => {
     const { id } = req.params;
-    const updatedCinemaData = req.body;
+    const updatedCinemaData = req.body
 
     try {
-      const existingCinema = await knexInstance('cinemas').where({ id }).first();
+      const existingCinema = await knexInstance('cinemas').where({ id }).first()
       if (!existingCinema) {
-        return res.status(404).json({ error: 'Cinema not found' });
+        return res.status(404).json({ error: 'Cinema not found' })
       }
 
-      await knexInstance('cinemas').where({ id }).update(updatedCinemaData);
+      await knexInstance('cinemas').where({ id }).update(updatedCinemaData)
 
-      res.json({ message: 'Cinema updated successfully' });
+      res.json({ message: 'Cinema updated successfully' })
     } catch (error) {
-      console.error('Error updating cinema:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Error updating cinema:', error)
+      res.status(500).json({ error: 'Internal Server Error' })
     }
-  });
+  })
 
   router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params
 
     try {
-      const existingCinema = await knexInstance('cinemas').where({ id }).first();
+      const existingCinema = await knexInstance('cinemas').where({ id }).first()
       if (!existingCinema) {
-        return res.status(404).json({ error: 'Cinema not found' });
+        return res.status(404).json({ error: 'Cinema not found' })
       }
 
-      await knexInstance('cinemas').where({ id }).del();
+      await knexInstance('cinemas').where({ id }).del()
 
-      res.json({ message: 'Cinema deleted successfully' });
+      res.json({ message: 'Cinema deleted successfully' })
     } catch (error) {
-      console.error('Error deleting cinema:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Error deleting cinema:', error)
+      res.status(500).json({ error: 'Internal Server Error' })
     }
-  });
+  })
 
-  return router;
+  return router
 };

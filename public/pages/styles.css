@@ -1,46 +1,101 @@
-/* styles.css */
-
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 20px auto;
-  }
-  
-  .cinemas,
-  .auditoriums {
-    margin-bottom: 20px;
-  }
-  
-  .icon {
-    cursor: pointer;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    display: inline-block;
-  }
-  
-  .cinema,
-  .auditorium {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .update,
-  .delete {
-    cursor: pointer;
-    margin-left: 10px;
-    color: #007bff;
-  }
-  
-  .update:hover,
-  .delete:hover {
-    text-decoration: underline;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 20px auto;
+}
+
+.cinemas {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cinemas h2 {
+  color: #007bff;
+}
+
+
+.cinema-list {
+  margin-top: 20px;
+}
+
+.cinema-item {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 0;
+}
+
+.cinema-item h3 {
+  margin: 0;
+}
+
+.add-cinema {
+  text-align: center;
+  cursor: pointer;
+  background-color: #3c85c4;
+}
+.add-auditorium {
+  text-align: center;
+  cursor: pointer;
+  background-color: #3c85c4;
+}
+
+.modal-content {
+  border-radius: 80px;
+}
+
+.modal-header {
+  background-color: #36d897;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  border-radius: 0 0 8px 8px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.update {
+  color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.delete {
+  color: #c41010;
+}
