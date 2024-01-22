@@ -1,15 +1,72 @@
-const express = require('express');
-const router = express.Router();
-const knex = require('../knexfile');
+const express = require('express')
+const router = express.Router()
+const knexInstance = require('../knexfile').development
+const knex = require('knex')(knexInstance)
 
-router.get('/auditoriums', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const auditoriums = await knex('auditoriums').select('*');
-    res.json(auditoriums);
+    const auditoriums = await knex('auditoriums').select('*')
+    res.json(auditoriums)
   } catch (error) {
-    console.error('Error fetching auditoriums:', error);
+    console.error('Error fetching auditoriums:', error.message)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const auditorium = await knex('auditoriums').where({ id }).first();
+    if (!auditorium) {
+      return res.status(404).json({ error: 'Auditorium not found' });
+    }
+    res.json(auditorium);
+  } catch (error) {
+    console.error('Error fetching auditorium by ID:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-module.exports = router;
+router.post('/create', async (req, res) => {
+  const newAuditoriumData = req.body;
+  try {
+    const createdAuditorium = await knex('auditoriums').insert(newAuditoriumData).returning('*');
+    res.status(201).json({ message: 'Auditorium created successfully', auditorium: createdAuditorium[0] });
+  } catch (error) {
+    console.error('Error creating auditorium:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const updatedAuditoriumData = req.body;
+  try {
+    const existingAuditorium = await knex('auditoriums').where({ id }).first();
+    if (!existingAuditorium) {
+      return res.status(404).json({ error: 'Auditorium not found' });
+    }
+    await knex('auditoriums').where({ id }).update(updatedAuditoriumData);
+    res.json({ message: 'Auditorium updated successfully' });
+  } catch (error) {
+    console.error('Error updating auditorium:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const existingAuditorium = await knex('auditoriums').where({ id }).first();
+    if (!existingAuditorium) {
+      return res.status(404).json({ error: 'Auditorium not found' });
+    }
+    await knex('auditoriums').where({ id }).del();
+    res.json({ message: 'Auditorium deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting auditorium:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+module.exports = router

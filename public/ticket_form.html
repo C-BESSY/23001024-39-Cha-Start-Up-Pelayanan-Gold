@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Form</title>
+    <!-- Add Bootstrap CSS link here -->
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Ticket Form</h2>
+        <form action="/ticket/createTicket" method="POST">
+            <div class="mb-3">
+                <label for="book_id" class="form-label">Book ID:</label>
+                <input type="number" class="form-control" id="book_id" name="book_id" required>
+            </div>
+            <!-- Add other fields as needed -->
+            <button type="submit" class="btn btn-primary">Create Ticket</button>
+        </form>
+    </div>
+    <!-- Add Bootstrap JS and Popper.js script links here -->
+</body>
+</html>

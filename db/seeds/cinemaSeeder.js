@@ -2,6 +2,7 @@ const knex = require('knex');
 
 exports.seed = async function (knex) {
   await knex('cinemas').del();
+  await knex.raw("ALTER SEQUENCE cinemas_id_seq RESTART WITH 1")
 
   await knex('cinemas').insert([
     { name: 'Empire XXI', location: 'Jl. Urip Sumoharjo No.104, Klitren, Gondokusuman, Kota Yogyakarta'},
@@ -13,4 +14,6 @@ exports.seed = async function (knex) {
     { name: 'CGV Transmart Maguwo', location: 'Transmart Maguwo, Jl. Raya Solo KM 8 No. 234, Kalongan, Maguwoharjo, Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta' },
     { name: 'Cinepolis Lippo Plaza Jogja', location: 'Lippo Plaza Lt. 1 dan 4, Jl. Laksda Adisucipto No.32-34, Demangan, Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta' },
   ]);
+
+  console.log('Success seeding table: "cinemas"');
 };

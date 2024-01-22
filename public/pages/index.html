@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="index.css">
+    <title>Movies</title>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <header id="form">
+        <h1 class="title">Popular Movies</h1>
+        <div class="search-group">
+          <span class="search-icon"><i class="bi bi-search"></i></span>
+          <input type="text" placeholder="Search" id="search" class="search">
+        </div>
+      </header>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu">
+      <br><br><br><br>
+      <h1 class="account" onclick="redirectToLoginForm()">
+        <i class="bi bi-person-circle"></i>
+      </h1>
+      <h1 class="home" onclick="showAlert('This is home')">
+        <i class="bi bi-house"></i>
+      </h1>
+      <h1 class="menu-list" onclick="showMenuOptions()">
+        <i class="bi bi-list"></i>
+    </h1>
+    </div>
+    <script>
+      function showAlert(message) {
+        alert(message);
+      }
+  
+      function showMenuOptions() {
+        const choice = prompt('Choose an option:\n1 = Cinemas\n2 = Auditoriums');
+        if (choice === '1') {
+            window.location.href = 'cinemas.html';
+        } else if (choice === '2') {
+            window.location.href = 'auditoriums.html';
+        } else {
+            showAlert('Cancel');
+        }
+      }
+    </script>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="create">
+      <div class="icon" onclick="addMovie()">
+        *Haven't done yet🙏
+        <i class="bi bi-plus"></i>
+      </div>
+    </div>
+    <div class="body">
+      <div id="movieList" class="movie-list"></div>
+        <script src="../scripts/main.js"></script>
+      </div>
+    </div>
+    <div class="next" onclick="loadNextPage()">
+      Next
+    </div>
+  </div>
+
+  <footer>
+    <p>©2021 Movie App | Designed by <a href="https://www.instagram.com/chassie.b_/" target="_blank">Charisty Bessy</a></p>
+  </footer>
+</body>
+</html>

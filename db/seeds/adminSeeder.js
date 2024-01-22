@@ -1,15 +1,22 @@
 const Admin = require('../../models/admin');
 const { Model } = require('objection');
+const fs = require('fs');
 
-exports.seed = async function (knex) {
+exports.seed = async function(knex) {
     await knex('admins').del();
-    
-    // Bind the Objection model to the Knex instance
+    await knex.raw("ALTER SEQUENCE admins_id_seq RESTART WITH 1")
+
     Model.knex(knex);
 
-    // Tambahkan admin default
-    await Admin.query().insert({
+    const adminData = {
         username: 'admin',
         password: 'password',
-    });
+    };
+
+    await Admin.query().insert(adminData);
+
+    console.log('Success seeding table: "admins"');
+
+    const jsonData = JSON.stringify([adminData], null, 2);
+    fs.writeFileSync('./public/admin-data.json', jsonData);
 };

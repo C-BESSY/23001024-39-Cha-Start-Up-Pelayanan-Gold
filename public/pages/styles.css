@@ -1,0 +1,46 @@
+/* styles.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  .cinemas,
+  .auditoriums {
+    margin-bottom: 20px;
+  }
+  
+  .icon {
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    display: inline-block;
+  }
+  
+  .cinema,
+  .auditorium {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .update,
+  .delete {
+    cursor: pointer;
+    margin-left: 10px;
+    color: #007bff;
+  }
+  
+  .update:hover,
+  .delete:hover {
+    text-decoration: underline;
+  }
+  

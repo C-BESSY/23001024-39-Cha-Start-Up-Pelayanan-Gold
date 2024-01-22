@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Form</title>
+    <!-- Add Bootstrap CSS link here -->
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Book Form</h2>
+        <form action="/book/createBook" method="POST">
+            <div class="mb-3">
+                <label for="users_id" class="form-label">User ID:</label>
+                <input type="number" class="form-control" id="users_id" name="users_id" required>
+            </div>
+            <div class="mb-3">
+                <label for="movie_on_shows_id" class="form-label">Movie On Show ID:</label>
+                <input type="number" class="form-control" id="movie_on_shows_id" name="movie_on_shows_id" required>
+            </div>
+            <!-- Add other fields as needed -->
+            <button type="submit" class="btn btn-primary">Create Book</button>
+        </form>
+    </div>
+    <!-- Add Bootstrap JS and Popper.js script links here -->
+</body>
+</html>
